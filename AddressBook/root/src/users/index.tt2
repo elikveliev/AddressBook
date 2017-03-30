@@ -1,0 +1,39 @@
+
+        
+
+<h2>Users (<a href="/users/add">Add user</a>)</h2>
+
+
+<table class="table table-hover table-striped table-condensed">
+    <th>#</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th style="width: 50px;">Edit a user</th>
+    <th style="width: 50px;">Delete a user</th>
+    [% FOREACH u IN users_all.all %]
+        [% uid = user.id %]
+        [% IF uid == u.id %]
+            <tr class="success">
+                <td><a href="/users/[% u.id %]/view">[% u.id %]</a></td>
+                <td><a href="/users/[% u.id %]/view">[% u.firstname %]</a></td>
+                <td><a href="/users/[% u.id %]/view">[% u.lastname %]</a></td>
+                <td><a href="/users/[% u.id %]/edit">Edit</a></td>
+                <td ><a href="/users/[% u.id %]/delete">Delete</a></td>
+            </tr>
+        [% ELSE %]
+            <tr>
+                <td><a href="/users/[% u.id %]/view">[% u.id %]</a></td>
+                <td><a href="/users/[% u.id %]/view">[% u.firstname %]</a></td>
+                <td><a href="/users/[% u.id %]/view">[% u.lastname %]</a></td>
+                <td><a href="/users/[% u.id %]/edit">Edit</a></td>
+                <td><a href="/users/[% u.id %]/delete">Delete</a></td>
+            </tr>
+        [% END %]    
+    [% END %]    
+</table>
+<br/>
+<br/>
+[% IF user %]
+    [% INCLUDE users/users.tt2 %]
+[% END %]
+

@@ -1,0 +1,16 @@
+<h4><span class="success">[% user.firstname _ ' ' _ user.lastname %]</span>&nbsp;&nbsp;-&nbsp;&nbsp;<span>Edit user</span></h4> 
+<br/>
+<form method="POST">
+  <div class="form-group">
+    <label for="exampleInputFirstname">First name</label>
+    <input type="text" class="form-control" id="exampleInputFirstname" name="firstname" value="[% user.firstname %]" placeholder="Firstname...">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputLastname">Lastname</label>
+    <input type="text" class="form-control" id="exampleInputLastname" name="lastname" value="[% user.lastname %]" placeholder="Lastname...">
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Change</button>
+  
+</form>
+<br/>

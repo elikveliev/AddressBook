@@ -1,0 +1,29 @@
+<h4><span class="success">Add a new address for [% user.firstname _ ' ' _ user.lastname %]</span></h4> 
+<br/>
+<form method="POST">
+  <input type= "hidden" name="user_id" value="[% user.id %]">  
+    
+  <div class="form-group">
+    <label for="exampleInputCity">City</label>
+    <input type="text" class="form-control" id="exampleInputCity" name="city" placeholder="City...">
+  </div>
+  
+  <div class="form-group">
+    <label for="exampleInputStreet">Street</label>
+    <input type="text" class="form-control" id="exampleInputStreet" name="street" placeholder="Street...">
+  </div>
+  
+  <div class="form-group">
+    <label for="exampleInputPhone">Phone</label>
+    <input type="text" class="form-control" id="exampleInputPhone" name="phone" placeholder="Phone...">
+  </div>
+  
+  <div class="form-group">
+    <label for="exampleInputZipcode">Zipcode</label>
+    <input type="text" class="form-control" id="exampleInputZipcode" name="zipcode" placeholder="Zipcode...">
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Add</button>
+  
+</form>
+<br/>

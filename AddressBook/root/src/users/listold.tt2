@@ -1,0 +1,42 @@
+<html>
+    <body>
+        
+
+<h1>Users - List</h1>
+
+
+<table style="border:1px dotted black;">
+    <th>#</th>
+    <th>First name</th>
+    <th>Last name</th>
+    [% FOREACH u IN users_all.all %]
+        <tr>
+            <td><a href="/users/view/[% u.id %]">[% u.id %]</a></td>
+            <td><a href="/users/view/[% u.id %]">[% u.firstname %]</a></td>
+            <td><a href="/users/view/[% u.id %]">[% u.lastname %]</a></td>
+        </tr>
+    [% END %]    
+</table>
+<br/>
+<br/>
+
+[%# IF user %]
+    [%# INCLUDE users/users.tt2 %]
+<!--    <h4>[%# user.firstname _ ' ' _ user.lastname %]</h4>
+    <table style="border:1px dotted black;">
+    <th>#</th>
+    <th>First name</th>
+    <th>Last name</th>
+    [%# FOREACH u IN users_all.all %]
+        <tr>
+            <td><a href="/users/view/[%# u.id %]">[%# u.id %]</a></td>
+            <td><a href="/users/view/[%# u.id %]">[%# u.firstname %]</a></td>
+            <td><a href="/users/view/[%# u.id %]">[%# u.lastname %]</a></td>
+        </tr>
+    [%# END %]    
+</table>-->
+[%# END %]
+
+
+    </body>
+</html>

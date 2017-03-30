@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" [%#
+    %]"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>[% template.title or "My Catalyst App!" %]</title>
+<link rel="stylesheet" href="[% c.uri_for('/static/css/main.css') %]" />
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+ 
+<body style="margin: 30px;">
+<div id="outer">
+<div id="header">
+    [%# Your logo could go here -%]
+    <img src="[% c.uri_for('/static/images/btn_88x31_powered.png') %]" />
+    [%# Insert the page title -%]
+    <h1>[% template.title or site.title %]</h1>
+</div>
+ 
+<div id="bodyblock">
+<div id="menu">
+    Navigation:
+    <ul>
+        <li><a href="[% c.uri_for('/users') %]">Home</a></li>
+        <li><a href="[% c.uri_for('/users')
+            %]" title="Catalyst Welcome Page">Users</a></li>
+    </ul>
+</div><!-- end menu -->
+ 
+<div id="content">
+    [%# Status and error messages %]
+    <span class="message">[% status_msg %]</span>
+    <span class="error">[% error_msg %]</span>
+    [%# This is where TT will stick all of your template's contents. -%]
+    [% content %]
+</div><!-- end content -->
+</div><!-- end bodyblock -->
+ 
+<div id="footer">Copyright (c) your name goes here</div>
+</div><!-- end outer -->
+ 
+</body>
+</html>

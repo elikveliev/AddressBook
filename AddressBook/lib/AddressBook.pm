@@ -26,7 +26,10 @@ use Catalyst qw/
     Catalyst::Plugin::Authorization::Roles
     Catalyst::Plugin::Session
     Catalyst::Plugin::Session::State::Cookie
-    Catalyst::Plugin::Session::Store::FastMmap 
+
+    Catalyst::Plugin::Session::Store::Cache
+
+
 /;
 
 extends 'Catalyst';

@@ -20,7 +20,13 @@ use Catalyst qw/
     -Debug
     ConfigLoader
     Static::Simple
-
+    
+    Catalyst::Plugin::Authentication
+    Catalyst::Authentication::Store::DBIx::Class
+    Catalyst::Plugin::Authorization::Roles
+    Catalyst::Plugin::Session
+    Catalyst::Plugin::Session::State::Cookie
+    Catalyst::Plugin::Session::Store::FastMmap 
 /;
 
 extends 'Catalyst';

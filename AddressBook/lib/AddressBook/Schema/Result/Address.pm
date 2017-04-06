@@ -89,7 +89,7 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 __PACKAGE__->belongs_to(user => 'AddressBook::Schema::Result::User', 'id');
-
+__PACKAGE__->many_to_many(roles => 'user_roles', 'role');
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
 1;

@@ -12,7 +12,7 @@
         </tr>
   [% FOREACH a IN addresses.all %]    
         <tr>
-            <td>[% a.city %]   [% a.id %]</td>
+            <td>[% a.city %]</td>
             <td>[% a.street %]</td>
             <td>[% a.phone %]</td>
             <td>[% a.zipcode %]</td>

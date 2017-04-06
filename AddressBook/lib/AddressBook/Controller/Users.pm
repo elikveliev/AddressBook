@@ -26,10 +26,27 @@ sub add :Local {
     my ($self, $c) = @_;
     
     my $params = $c->req->params;
-    if ( $params->{firstname} && $params->{firstname} ) {
+    if ( $c->req->method eq  "POST" ) {
+
         die "bad first name" unless ($params->{firstname} && $params->{firstname} =~ /^[A-Za-z-]+$/);
         die "bad last name"  unless ($params->{lastname} && $params->{lastname} =~ /^[A-Za-z-]+$/);
-        my $user = $c->model('DB::User')->create({ firstname => $params->{firstname}, lastname => $params->{lastname} });
+        my $username = $params->{username};
+        die "bad username $username" unless $username =~ /^[\s\w]{4,10}$/;
+        die "username $username exists "  if $c->model('DB::User')->search({username => $username})->first;
+        my $password = $params->{password};
+        my $password_confirm = $params->{password_confirm};
+        die "bad password " unless $password =~ /^[\s\w]{4,10}$/;
+        die "incorrectpassword confirmation " unless $password eq $password_confirm;
+        
+        warn "Will create a user...\n";
+        my $user = eval{ $c->model('DB::User')->create({
+            firstname   => $params->{firstname},
+            lastname    => $params->{lastname},
+            username    => $username,
+            password    => $password,
+            
+            }); };
+        die $@ if $@ or !$user;
         $c->stash(user => $user);
         
         return $c->res->redirect($c->uri_for_action('users/index'));
@@ -82,15 +99,28 @@ sub view : Chained('base') :PathPart('view') :Args(0) {
 sub edit : Chained('base') :PathPart('edit') :Args(0) {
     my ($self, $c) = @_;
     
-    
     my $user = $c->stash->{user};
     die unless $user;
-    
-    my $params = $c->req->params;
-    if ( $params->{firstname} && $params->{firstname} ) {
+        
+    if ( $c->req->method eq  "POST" ) {
+        my $params = $c->req->params;
         die "bad first name" unless ($params->{firstname} && $params->{firstname} =~ /^[A-Za-z-]+$/);
         die "bad last name"  unless ($params->{lastname} && $params->{lastname} =~ /^[A-Za-z-]+$/);
-        $user->update({ firstname => $params->{firstname}, lastname => $params->{lastname} });
+        my $username = $params->{username};
+        my $password = $params->{password};
+        my $password_confirm = $params->{password_confirm};
+        die "bad password " unless $password =~ /^[\s\w]{4,10}$/;
+        die "incorrectpassword confirmation " unless $password eq $password_confirm; 
+    
+        
+    
+   
+    
+        $user->update({ firstname => $params->{firstname},
+                       lastname => $params->{lastname},
+                       username => $username,
+                       password => $password
+                       });
     }
     
    # my $addresses = $c->model('DB::Address')->search( { user_id => $user->id } );

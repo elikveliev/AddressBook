@@ -10,6 +10,19 @@
     <input type="text" class="form-control" id="exampleInputLastname" name="lastname" value="[% user.lastname %]" placeholder="Lastname...">
   </div>
   
+  <div class="form-group">
+    <label for="exampleInputUsername">Username</label>
+    <input type="text" class="form-control" id="exampleInputUsername" name="username" value="[% user.username %]" placeholder="Username...">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword" name="password"  placeholder="Your password...">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPasswordConfirm">Password confirm</label>
+    <input type="password" class="form-control" id="exampleInputPasswordConfirm" name="password_confirm"  placeholder="Confirm password...">
+  </div>
+  
   <button type="submit" class="btn btn-primary">Change</button>
   
 </form>

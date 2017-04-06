@@ -18,11 +18,23 @@ use MooseX::NonMoose;
 use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
 
-=head1 TABLE: C<user_roles>
+=head1 COMPONENTS LOADED
+
+=over 4
+
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=back
 
 =cut
 
-__PACKAGE__->table("user_roles");
+__PACKAGE__->load_components("InflateColumn::DateTime");
+
+=head1 TABLE: C<user_role>
+
+=cut
+
+__PACKAGE__->table("user_role");
 
 =head1 ACCESSORS
 
@@ -60,11 +72,9 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("user_id", "role_id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-05 14:34:39
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:BxxL7oYRzUWKiZhItVXLew
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-06 17:32:41
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:m7exGrY+M6MakF4E/lqZhA
 
-__PACKAGE__->belongs_to( 'user' => 'AddressBook::Schema::Result::User', { 'foreign.id' => 'self.user_id'} );
-__PACKAGE__->belongs_to( 'user' => 'AddressBook::Schema::Result::Role', { 'foreign.id' => 'self.role_id'} );
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

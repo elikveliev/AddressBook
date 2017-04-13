@@ -1,4 +1,5 @@
-<h4><span class="success">[% user.firstname _ ' ' _ user.lastname %]</span>&nbsp;&nbsp;&nbsp;&nbsp;(<span><a href="edit">Edit user</a></span>)</h4> 
+<h4><span class="success">[% user.firstname _ ' ' _ user.lastname %]</span>&nbsp;&nbsp;&nbsp;&nbsp;(<span><a href="edit">Edit user</a></span>)</h4>
+
 [% IF addresses %]
     <h3>Address(es) (<span><a href="/addresses/add?user_id=[% user.id %]">add address</a></span>)</h3>
     <table class="table table-hover table-striped">

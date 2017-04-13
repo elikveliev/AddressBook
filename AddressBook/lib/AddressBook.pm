@@ -24,10 +24,12 @@ use Catalyst qw/
     StackTrace
     
     Authentication
+    Authorization::Roles
+   
    
     Session
     Session::State::Cookie
-    Session::Store::FastMmap
+    Session::Store::File
 
 
 /;
@@ -67,6 +69,21 @@ __PACKAGE__->config(
             user_model      => 'DB::User',
             password_type   => 'clear',
         },
+        default_realm => 'members',
+                        members => {
+                            users => {
+                                credential => {
+                                    class => 'Password',
+                                    password_field => 'password',
+                                    password_type => 'clear'
+                                },
+                                store => {
+                                    class => 'DBIx::DB::User',
+            	                    role_relation => 'roles',
+            	                    role_field => 'rolemembers',
+            	                }
+                            }
+                    	},
     },
     encoding => 'utf-8',
 );

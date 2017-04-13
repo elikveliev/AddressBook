@@ -1,12 +1,12 @@
 use utf8;
-package AddressBook::Schema::Result::Role;
+package AddressBook::Schema::Resultset::Result::Role;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-AddressBook::Schema::Result::Role
+AddressBook::Schema::Resultset::Result::Role
 
 =cut
 
@@ -72,10 +72,9 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-06 17:32:41
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uWPCyK5ccj/SjoxtPR0blA
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-08 13:54:42
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:O0necfy7+kEbpoqK2TYurg
 
-__PACKAGE__->has_many(user_roles => 'AddressBook::Schema::Result::User', 'role_id');
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

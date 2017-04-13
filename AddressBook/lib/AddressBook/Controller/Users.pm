@@ -64,6 +64,7 @@ sub base : Chained('') :PathPart('users') :CaptureArgs(1) {
     my $users_all = $c->model('DB::User')->search( {}, { order_by => 'id'} );  
     
     $c->stash( users_all => $users_all, user => $user );
+    
 }
 
 =toImprove
@@ -87,12 +88,18 @@ sub viewgoogd : Chained('base')   :Args(1) {
 
 sub view : Chained('base') :PathPart('view') :Args(0) {
     my ($self, $c) = @_;
-    
+
     my $user = $c->stash->{user};
     die unless $user;
     
     my $addresses = $c->model('DB::Address')->search( { user_id => $user->id } );
     $c->stash(user => $user, addresses => $addresses, template => 'users/index.tt2');
+    my $owner = $c->user;
+    my @roles = $owner->user_roles;
+  
+        $c->stash(user_roles => \@roles);
+ 
+   
 }
 
 

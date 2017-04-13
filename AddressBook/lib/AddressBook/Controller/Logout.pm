@@ -28,7 +28,7 @@ sub index :Path :Args(0) {
     $c->logout;
  
 
-    $c->response->body('Matched AddressBook::Controller::Logout in Logout.');
+    $c->res->redirect( $c->uri_for( $c->controller('Login')->action_for('index') ) );
 }
 
 

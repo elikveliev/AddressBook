@@ -1,6 +1,22 @@
 
-        
+<h2>[% c.user.username %]</h2>
+[% FOREACH ur in user_roles %]<li>[% ur.role_id %]</li>[% END %]
+[%# FOREACH ur in c.user.user_roles %]<li>[%# ur.role.role %]</li>[%# END %]
+[% IF c.user_exists %]
+    Please Note: You are already logged in as '[% c.user.username %]'.
+    You can <a href="[% c.uri_for('/logout') %]">logout</a> here.
+[% ELSE %]
+    You need to log in to use this application.
+[% END %]
+[%#
+   Note that this whole block is a comment because the "#" appears
+   immediate after the "[%" (with no spaces in between).  Although it
+   can be a handy way to temporarily "comment out" a whole block of
+   TT code, it's probably a little too subtle for use in "normal"
+   comments.
+%]        
 
+<hr/>
 <h2>Users (<a href="/users/add">Add user</a>)</h2>
 
 

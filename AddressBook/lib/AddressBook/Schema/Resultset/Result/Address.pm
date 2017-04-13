@@ -1,12 +1,12 @@
 use utf8;
-package AddressBook::Schema::Result::Address;
+package AddressBook::Schema::Resultset::Result::Address;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
 
 =head1 NAME
 
-AddressBook::Schema::Result::Address
+AddressBook::Schema::Resultset::Result::Address
 
 =cut
 
@@ -101,13 +101,10 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-07 10:53:09
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GSFKO1nCrlMWBIWiaTmtBQ
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-08 13:54:42
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:st+q5FgOqitM+9lWdDisJQ
 
-__PACKAGE__->set_primary_key("id");
 
-__PACKAGE__->belongs_to(user => 'AddressBook::Schema::Result::User', 'id');
-__PACKAGE__->many_to_many(roles => 'user_roles', 'role');
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
 1;

@@ -1,6 +1,12 @@
 
 <h2>[% c.user.username %]</h2>
-[% FOREACH ur in user_roles %]<li>[% ur.role_id %]</li>[% END %]
+<p>Hello [% c.user.username %], you have the following roles:</p>
+ 
+<ul>
+  [% # Dump list of roles -%]
+  [% FOR r = c.user.user_roles %]<li>[% r.role.role %]</li>[% END %]
+</ul>
+
 [%# FOREACH ur in c.user.user_roles %]<li>[%# ur.role.role %]</li>[%# END %]
 [% IF c.user_exists %]
     Please Note: You are already logged in as '[% c.user.username %]'.

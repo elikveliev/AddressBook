@@ -92,7 +92,7 @@ __PACKAGE__->set_primary_key("id");
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Auh08Hs6hIzbF8da6Oy/7Q
 
 __PACKAGE__->has_many(addresses =>  'AddressBook::Schema::Result::Address', 'user_id' );
-#__PACKAGE__->has_many(user_roles => 'AddressBook::Schema::Result::UserRole',  'user_id' );  #
+__PACKAGE__->has_many(roles => 'AddressBook::Schema::Result::UserRole',  'user_id' );  #
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
@@ -106,7 +106,7 @@ sub user_roles {
     my $self = shift;
     warn "111111\n";
     my @roles_rs = $self->result_source->schema->resultset( 'UserRole' )->search( { user_id => $self->id } )->all;
-    return @roles_rs;
+    return \@roles_rs;
 }
 
 1;

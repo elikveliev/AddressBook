@@ -1,19 +1,19 @@
 
 <h2>[% c.user.full_name %]</h2>
-<p>Hello [% c.user.username %], you have the following roles:</p>
+<h3>Hello [% c.user.username %], you have the following roles:</h3>
  
 <ul>
   [% # Dump list of roles -%]
-  [% FOR r = c.user.user_roles %]<li>[% r.role.role %]</li>[% END %]
+  <h4>[% FOR r = c.user.user_roles %]<li>[% r.role.role %]</li>[% END %]</h4>
 </ul>
 
-[%# FOREACH ur in c.user.user_roles %]<li>[%# ur.role.role %]</li>[%# END %]
+<h4>
 [% IF c.user_exists %]
     Please Note: You are already logged in as '[% c.user.username %]'.
     You can <a href="[% c.uri_for('/logout') %]">logout</a> here.
 [% ELSE %]
     You need to log in to use this application.
-[% END %]
+[% END %]</h4>
 [%#
    Note that this whole block is a comment because the "#" appears
    immediate after the "[%" (with no spaces in between).  Although it
@@ -37,36 +37,73 @@
     [% FOREACH u IN users_all.all %]
         [% uid = user.id %]
         [% IF uid == u.id %]
-            <tr class="success">
-                <td><a href="/users/[% u.id %]/view">[% u.id %]</a></td>
-                <td><a href="/users/[% u.id %]/view">[% u.email_address %]</a></td>
-                <td><a href="/users/[% u.id %]/view">[% u.username %]</a></td>                
-                <td><a href="/users/[% u.id %]/view">[% u.firstname %]</a></td>
-                <td><a href="/users/[% u.id %]/view">[% u.lastname %]</a></td>
-                <td><a href="/users/[% u.id %]/edit">Edit</a></td>
-                <td ><a href="/users/[% u.id %]/delete">Delete</a></td>
-            </tr>
-        [% ELSIF user.is_admin %]
-            <tr>
-                <td><a href="/users/[% u.id %]/view">[% u.id %]</a></td>
-                <td><a href="/users/[% u.id %]/view">[% u.email_address %]</a></td>
-                <td><a href="/users/[% u.id %]/view">[% u.username %]</a></td>
-                <td><a href="/users/[% u.id %]/view">[% u.firstname %]</a></td>
-                <td><a href="/users/[% u.id %]/view">[% u.lastname %]</a></td>
-                <td><a href="/users/[% u.id %]/edit">Edit</a></td>
-                <td><a href="/users/[% u.id %]/delete">Delete</a></td>
-            </tr>
+            [% IF c.check_user_roles(c.user, 'admin') %]
+                <tr class="success">
+                    <td><a href="/users/[% u.id %]/view">[% u.id %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.email_address %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.username %]</a></td>                
+                    <td><a href="/users/[% u.id %]/view">[% u.firstname %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.lastname %]</a></td>
+                    <td><a href="/users/[% u.id %]/edit">Edit</a></td>
+                    <td ><a href="/users/[% u.id %]/delete">Delete</a></td>
+                </tr>
+            [% ELSIF  c.user.id == u.id && !c.check_user_roles(c.user, 'admin') %]
+                <tr class="success">
+                    <td><a href="/users/[% u.id %]/view">[% u.id %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.email_address %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.username %]</a></td>
+                    
+                    <td><a href="/users/[% u.id %]/view">[% u.firstname %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.lastname %]</a></td>
+                    <td><a href="/users/[% u.id %]/edit">Edit</a></td>
+                    <td><a href="/users/[% u.id %]/delete">Delete</a></td>
+                </tr>
+            [% ELSE %]
+                <tr class="success">
+                    <td><a href="/users/[% u.id %]/view">[% u.id %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.email_address %]</a></td>
+                    <td>-</td>
+                    <td><a href="/users/[% u.id %]/view">[% u.firstname %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.lastname %]</a></td>
+                    <td><a href="/users/[% u.id %]/edit">Edit</a></td>
+                    <td><a href="/users/[% u.id %]/delete">Delete</a></td>
+                </tr>
+             [% END %]   
         [% ELSE %]
-            <tr>
-                <td><a href="/users/[% u.id %]/view">[% u.id %]</a></td>
-                <td><a href="/users/[% u.id %]/view">[% u.email_address %]</a></td>
-                <td>-</td>
-                <td><a href="/users/[% u.id %]/view">[% u.firstname %]</a></td>
-                <td><a href="/users/[% u.id %]/view">[% u.lastname %]</a></td>
-                <td><a href="/users/[% u.id %]/edit">Edit</a></td>
-                <td><a href="/users/[% u.id %]/delete">Delete</a></td>
-            </tr>    
-        [% END %]    
+             [% IF  uid != u.id && c.check_user_roles(c.user, 'admin') %]
+                <tr>
+                    <td><a href="/users/[% u.id %]/view">[% u.id %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.email_address %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.username %]</a></td>
+                    
+                    <td><a href="/users/[% u.id %]/view">[% u.firstname %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.lastname %]</a></td>
+                    <td><a href="/users/[% u.id %]/edit">Edit</a></td>
+                    <td><a href="/users/[% u.id %]/delete">Delete</a></td>
+                </tr>
+             [% ELSIF  c.user.id == u.id && ! c.check_user_roles(c.user, 'admin') %]
+                <tr>
+                    <td><a href="/users/[% u.id %]/view">[% u.id %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.email_address %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.username %]</a></td>
+                    
+                    <td><a href="/users/[% u.id %]/view">[% u.firstname %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.lastname %]</a></td>
+                    <td><a href="/users/[% u.id %]/edit">Edit</a></td>
+                    <td><a href="/users/[% u.id %]/delete">Delete</a></td>
+                </tr>
+            [% ELSE %]
+                <tr>
+                    <td><a href="/users/[% u.id %]/view">[% u.id %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.email_address %]</a></td>
+                    <td>-</td>
+                    <td><a href="/users/[% u.id %]/view">[% u.firstname %]</a></td>
+                    <td><a href="/users/[% u.id %]/view">[% u.lastname %]</a></td>
+                    <td><a href="/users/[% u.id %]/edit">Edit</a></td>
+                    <td><a href="/users/[% u.id %]/delete">Delete</a></td>
+                </tr>
+            [% END %]
+         [% END %]   
     [% END %]    
 </table>
 <br/>

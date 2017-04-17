@@ -29,10 +29,10 @@
             <th>Navigation</th>       
           </tr>
           <tr>
-            <td><a href="/">HOME</a></td>           
+            <td><h4><a href="/">HOME</a></h4></td>           
           </tr>
           <tr>
-            <td><a href="[% c.uri_for('/login') %]">Login</a></td>
+            <td><h4><a href="[% c.uri_for('/login') %]">Login</a></h4></td>
         
           </tr>
           <tr>

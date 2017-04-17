@@ -139,4 +139,9 @@ __PACKAGE__->many_to_many("roles", "user_roles", "role");
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
+
+sub is_admin {
+    my $self = shift;
+    return $self->result_source->schema->resultset('DB::UserRole')->search({ user_id => $self->id, role_id => 2 })->count;
+}
 1;

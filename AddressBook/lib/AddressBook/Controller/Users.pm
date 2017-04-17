@@ -94,10 +94,10 @@ sub view : Chained('base') :PathPart('view') :Args(0) {
     
     my $addresses = $c->model('DB::Address')->search( { user_id => $user->id } );
     $c->stash(user => $user, addresses => $addresses, template => 'users/index.tt2');
-    my $owner = $c->user;
-    my @roles = $owner->user_roles;
+   # my $owner = $c->user;
+   # my @roles = $owner->user_roles;
   
-        $c->stash(user_roles => \@roles);
+   #     $c->stash(user_roles => \@roles);
  
    
 }

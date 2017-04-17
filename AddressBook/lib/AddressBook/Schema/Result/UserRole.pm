@@ -30,31 +30,33 @@ extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime");
 
-=head1 TABLE: C<user_roles>
+=head1 TABLE: C<user_role>
 
 =cut
 
-__PACKAGE__->table("user_roles");
+__PACKAGE__->table("user_role");
 
 =head1 ACCESSORS
 
 =head2 user_id
 
   data_type: 'integer'
+  is_foreign_key: 1
   is_nullable: 0
 
 =head2 role_id
 
   data_type: 'integer'
+  is_foreign_key: 1
   is_nullable: 0
 
 =cut
 
 __PACKAGE__->add_columns(
   "user_id",
-  { data_type => "integer", is_nullable => 0 },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "role_id",
-  { data_type => "integer", is_nullable => 0 },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
 );
 
 =head1 PRIMARY KEY
@@ -71,12 +73,42 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("user_id", "role_id");
 
+=head1 RELATIONS
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-08 13:46:13
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:3yTpNgH85SNrWWedw5R8Uw
+=head2 role
 
-__PACKAGE__->belongs_to(user => 'AddressBook::Schema::Result::User', { 'foreign.id' => 'self.user_id' }, );
-__PACKAGE__->belongs_to(role => 'AddressBook::Schema::Result::Role', { 'foreign.id' => 'self.role_id' }, );
+Type: belongs_to
+
+Related object: L<AddressBook::Schema::Result::Role>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "role",
+  "AddressBook::Schema::Result::Role",
+  { id => "role_id" },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+=head2 user
+
+Type: belongs_to
+
+Related object: L<AddressBook::Schema::Result::User>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "user",
+  "AddressBook::Schema::Result::User",
+  { id => "user_id" },
+  { is_deferrable => 0, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-14 20:25:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:d5AImAacQwgGkrh9+shUDw
+
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

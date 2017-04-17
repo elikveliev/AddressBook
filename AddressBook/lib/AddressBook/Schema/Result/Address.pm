@@ -34,14 +34,13 @@ __PACKAGE__->load_components("InflateColumn::DateTime");
 
 =cut
 
-__PACKAGE__->table("Addresses");
+__PACKAGE__->table("public.\"Addresses\"");
 
 =head1 ACCESSORS
 
 =head2 id
 
   data_type: 'integer'
-  is_auto_increment: 1
   is_nullable: 0
 
 =head2 user_id
@@ -57,9 +56,8 @@ __PACKAGE__->table("Addresses");
 
 =head2 street
 
-  data_type: 'varchar'
+  data_type: 'text'
   is_nullable: 0
-  size: 200
 
 =head2 phone
 
@@ -75,13 +73,13 @@ __PACKAGE__->table("Addresses");
 
 __PACKAGE__->add_columns(
   "id",
-  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
+  { data_type => "integer", is_nullable => 0 },
   "user_id",
   { data_type => "integer", is_nullable => 0 },
   "city",
   { data_type => "varchar", is_nullable => 0, size => 50 },
   "street",
-  { data_type => "varchar", is_nullable => 0, size => 200 },
+  { data_type => "text", is_nullable => 0 },
   "phone",
   { data_type => "bigint", is_nullable => 0 },
   "zipcode",
@@ -101,13 +99,10 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-07 10:53:09
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GSFKO1nCrlMWBIWiaTmtBQ
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-14 20:25:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xqkV3D/tEFSeNzjzwYWLxA
+__PACKAGE__->belongs_to('user' => 'AddressBook::Schema::Result::User', 'user_id');
 
-__PACKAGE__->set_primary_key("id");
-
-__PACKAGE__->belongs_to(user => 'AddressBook::Schema::Result::User', 'id');
-__PACKAGE__->many_to_many(roles => 'user_roles', 'role');
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
 1;

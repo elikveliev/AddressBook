@@ -41,22 +41,20 @@ __PACKAGE__->table("role");
 =head2 id
 
   data_type: 'integer'
-  is_auto_increment: 1
   is_nullable: 0
 
 =head2 role
 
-  data_type: 'varchar'
+  data_type: 'text'
   is_nullable: 1
-  size: 50
 
 =cut
 
 __PACKAGE__->add_columns(
   "id",
-  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
+  { data_type => "integer", is_nullable => 0 },
   "role",
-  { data_type => "varchar", is_nullable => 1, size => 50 },
+  { data_type => "text", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -71,11 +69,37 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 RELATIONS
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-06 17:32:41
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:uWPCyK5ccj/SjoxtPR0blA
+=head2 user_roles
 
-__PACKAGE__->has_many(user_roles => 'AddressBook::Schema::Result::User', 'role_id');
+Type: has_many
+
+Related object: L<AddressBook::Schema::Result::UserRole>
+
+=cut
+
+__PACKAGE__->has_many(
+  "user_roles",
+  "AddressBook::Schema::Result::UserRole",
+  { "foreign.role_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 users
+
+Type: many_to_many
+
+Composing rels: L</user_roles> -> user
+
+=cut
+
+__PACKAGE__->many_to_many("users", "user_roles", "user");
+
+
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-14 20:25:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:i6ZzN7A8tJ5aGk5/mKrIoQ
+
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

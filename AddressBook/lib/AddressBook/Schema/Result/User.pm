@@ -41,37 +41,55 @@ __PACKAGE__->table("users");
 =head2 id
 
   data_type: 'integer'
-  is_auto_increment: 1
   is_nullable: 0
+
+=head2 username
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 password
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 email_address
+
+  data_type: 'text'
+  is_nullable: 1
 
 =head2 firstname
 
-  data_type: 'varchar'
+  data_type: 'text'
   is_nullable: 1
-  size: 50
 
 =head2 lastname
 
-  data_type: 'varchar'
+  data_type: 'text'
   is_nullable: 1
-  size: 50
+
+=head2 active
+
+  data_type: 'integer'
+  is_nullable: 1
 
 =cut
 
 __PACKAGE__->add_columns(
   "id",
-  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
-  "firstname",
-  { data_type => "varchar", is_nullable => 1, size => 50 },
-  "lastname",
-  { data_type => "varchar", is_nullable => 1, size => 50 },
-   "username",
-  { data_type => "varchar", is_nullable => 0, size => 50 },
-  "email_address",
-  { data_type => "text", is_nullable => 0, size => 200 },
+  { data_type => "integer", is_nullable => 0 },
+  "username",
+  { data_type => "text", is_nullable => 1 },
   "password",
-  { data_type => "varchar", is_nullable => 0, size => 50 },
-
+  { data_type => "text", is_nullable => 1 },
+  "email_address",
+  { data_type => "text", is_nullable => 1 },
+  "firstname",
+  { data_type => "text", is_nullable => 1 },
+  "lastname",
+  { data_type => "text", is_nullable => 1 },
+  "active",
+  { data_type => "integer", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -86,27 +104,39 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key("id");
 
+=head1 RELATIONS
 
+=head2 user_roles
 
-# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-03-27 19:09:36
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Auh08Hs6hIzbF8da6Oy/7Q
+Type: has_many
+
+Related object: L<AddressBook::Schema::Result::UserRole>
+
+=cut
+
+__PACKAGE__->has_many(
+  "user_roles",
+  "AddressBook::Schema::Result::UserRole",
+  { "foreign.user_id" => "self.id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+=head2 roles
+
+Type: many_to_many
+
+Composing rels: L</user_roles> -> role
+
+=cut
 
 __PACKAGE__->has_many(addresses =>  'AddressBook::Schema::Result::Address', 'user_id' );
-__PACKAGE__->has_many(roles => 'AddressBook::Schema::Result::UserRole',  'user_id' );  #
+__PACKAGE__->many_to_many("roles", "user_roles", "role");
+
+
+# Created by DBIx::Class::Schema::Loader v0.07045 @ 2017-04-14 20:25:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:EA6C/qijMoUxYgfLj//u7w
+
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;
-
-sub is_admin {
-    my $self = shift;
-    return $self->result_source->schema->resultset( 'UserRole' )->search( { user_id => $self->id, role_id => 2 } )->count;
-}
-
-sub user_roles {
-    my $self = shift;
-    warn "111111\n";
-    my @roles_rs = $self->result_source->schema->resultset( 'UserRole' )->search( { user_id => $self->id } )->all;
-    return \@roles_rs;
-}
-
 1;

@@ -7,9 +7,9 @@ __PACKAGE__->config(
     schema_class => 'AddressBook::Schema',
     
     connect_info => {
-        dsn => 'dbi:mysql:AddressBook',
-        user => 'elik',
-        password => 'elik',
+        dsn => 'dbi:Pg:dbname=AddressBook',
+        user => 'postgres',
+        password => 'postgres',
     }
 );
 

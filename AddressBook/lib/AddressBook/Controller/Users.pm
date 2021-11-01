@@ -39,13 +39,14 @@ sub add :Local {
         die "incorrectpassword confirmation " unless $password eq $password_confirm;
         
         warn "Will create a user...\n";
-        my $user = eval{ $c->model('DB::User')->create({
-            firstname   => $params->{firstname},
-            lastname    => $params->{lastname},
-            username    => $username,
-            password    => $password,
-            
-            }); };
+        my $user = eval { $c->model('DB::User')->create({
+                firstname   => $params->{firstname},
+                lastname    => $params->{lastname},
+                username    => $username,
+                password    => $password,            
+            }); 
+        };
+        
         die $@ if $@ or !$user;
         $c->stash(user => $user);
         
@@ -94,12 +95,7 @@ sub view : Chained('base') :PathPart('view') :Args(0) {
     
     my $addresses = $c->model('DB::Address')->search( { user_id => $user->id } );
     $c->stash(user => $user, addresses => $addresses, template => 'users/index.tt2');
-   # my $owner = $c->user;
-   # my @roles = $owner->user_roles;
-  
-   #     $c->stash(user_roles => \@roles);
- 
-   
+
 }
 
 
